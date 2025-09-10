@@ -1,7 +1,7 @@
-// src/app/community/page.tsx  (새파일)
+// src/app/community/page.tsx
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 
 type Post = {
@@ -11,6 +11,8 @@ type Post = {
   author: string;
   createdAt: string;
 };
+
+const LS_KEY = 'community_posts_v1';
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -22,12 +24,57 @@ const seedPosts: Post[] = [
   { id: uid(), title: '커뮤니티 오픈!', content: '자유롭게 글과 댓글을 남겨보세요.', author: '운영팀', createdAt: now() },
 ];
 
+function loadPosts(): Post[] {
+  if (typeof window === 'undefined') return [];
+  const raw = localStorage.getItem(LS_KEY);
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as Post[];
+    if (Array.isArray(parsed)) return parsed;
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+function savePosts(posts: Post[]) {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(LS_KEY, JSON.stringify(posts));
+}
+
 export default function CommunityPage() {
-  const [posts, setPosts] = useState<Post[]>(seedPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  // 초기 로드 + 시드 주입(최초 1회)
+  useEffect(() => {
+    const existing = loadPosts();
+    if (existing.length === 0) {
+      savePosts(seedPosts);
+      setPosts(seedPosts);
+    } else {
+      setPosts(existing);
+    }
+  }, []);
+
+  // 정렬
   const ordered = useMemo(
     () => [...posts].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
     [posts]
   );
+
+  // 데모용 임시 글 추가
+  function addTempPost() {
+    const created: Post = {
+      id: uid(),
+      title: `임시 글 ${posts.length + 1}`,
+      content: '임시 내용입니다.',
+      author: '익명',
+      createdAt: now(),
+    };
+    const next = [created, ...posts];
+    setPosts(next);
+    savePosts(next);
+  }
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -60,21 +107,9 @@ export default function CommunityPage() {
           ))}
         </ul>
 
-        {/* 데모용: 글 추가(임시) */}
         <div className="mt-6">
           <button
-            onClick={() =>
-              setPosts((prev) => [
-                {
-                  id: uid(),
-                  title: `임시 글 ${prev.length + 1}`,
-                  content: '임시 내용입니다.',
-                  author: '익명',
-                  createdAt: now(),
-                },
-                ...prev,
-              ])
-            }
+            onClick={addTempPost}
             className="w-full rounded-lg border border-gray-300 bg-white py-2 text-sm font-medium hover:bg-gray-50"
           >
             임시 글 추가
