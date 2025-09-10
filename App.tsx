@@ -1,13 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Platform } from "react-native";
 
-/**
- * Snack 전용 커뮤니티 데모
- * - 글 목록/상세/댓글/작성 단일 파일
- * - 실제 API는 아래 API_BASE만 교체하면 연동 가능
- * - 현 단계는 in-memory mock 으로 동작
- */
-
 type Comment = {
   id: string;
   postId: string;
@@ -24,9 +17,8 @@ type Post = {
   createdAt: string;
 };
 
-const API_BASE = ""; // 실서버 붙일 때: 예) "https://api.example.com" (POST/GET 경로는 /community/* 로 매핑 예정)
+const API_BASE = ""; // 실서버 붙일 때 사용
 
-// ---- In-memory Mock Store (Snack용) ----
 function uid() {
   return Math.random().toString(36).slice(2, 10);
 }
@@ -43,18 +35,15 @@ const seedComments: Comment[] = [
 
 type ViewMode = { name: "list" } | { name: "detail"; postId: string } | { name: "new-post" };
 
-// ---- App ----
 export default function App() {
   const [posts, setPosts] = useState<Post[]>(seedPosts);
   const [comments, setComments] = useState<Comment[]>(seedComments);
   const [mode, setMode] = useState<ViewMode>({ name: "list" });
 
-  // New Post form
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
 
-  // New Comment form
   const [commentAuthor, setCommentAuthor] = useState("");
   const [commentContent, setCommentContent] = useState("");
 
@@ -68,22 +57,13 @@ export default function App() {
     return comments.filter((c) => c.postId === mode.postId).sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
   }, [mode, comments]);
 
-  // ---- Actions (현 단계: mock, 서버연동 시 fetch로 교체) ----
   async function createPost() {
     const title = newTitle.trim();
     const content = newContent.trim();
     const author = (newAuthor || "익명").trim();
-
     if (!title || !content) return alert("제목과 내용을 입력하세요.");
 
-    // 서버 연동 예시 (실서버 준비되면 주석 해제하고 API_BASE 설정)
-    // const res = await fetch(`${API_BASE}/community/posts`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ title, content, author }),
-    // });
-    // const created: Post = await res.json();
-
+    // 실서버 연동 시 fetch 사용
     const created: Post = { id: uid(), title, content, author, createdAt: now() };
     setPosts((prev) => [created, ...prev]);
     setNewTitle("");
@@ -98,21 +78,13 @@ export default function App() {
     const content = commentContent.trim();
     if (!content) return alert("댓글 내용을 입력하세요.");
 
-    // 서버 연동 예시
-    // const res = await fetch(`${API_BASE}/community/posts/${currentPost.id}/comments`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ author, content }),
-    // });
-    // const created: Comment = await res.json();
-
+    // 실서버 연동 시 fetch 사용
     const created: Comment = { id: uid(), postId: currentPost.id, author, content, createdAt: now() };
     setComments((prev) => [created, ...prev]);
     setCommentAuthor("");
     setCommentContent("");
   }
 
-  // ---- UI ----
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
@@ -151,25 +123,9 @@ export default function App() {
       {mode.name === "new-post" && (
         <View style={styles.container}>
           <Text style={styles.sectionTitle}>새 글 작성</Text>
-          <TextInput
-            placeholder="제목"
-            value={newTitle}
-            onChangeText={setNewTitle}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="내용"
-            value={newContent}
-            onChangeText={setNewContent}
-            style={[styles.input, styles.multiline]}
-            multiline
-          />
-          <TextInput
-            placeholder="작성자 (미입력 시 익명)"
-            value={newAuthor}
-            onChangeText={setNewAuthor}
-            style={styles.input}
-          />
+          <TextInput placeholder="제목" value={newTitle} onChangeText={setNewTitle} style={styles.input} />
+          <TextInput placeholder="내용" value={newContent} onChangeText={setNewContent} style={[styles.input, styles.multiline]} multiline />
+          <TextInput placeholder="작성자 (미입력 시 익명)" value={newAuthor} onChangeText={setNewAuthor} style={styles.input} />
           <TouchableOpacity style={styles.primaryBtn} onPress={createPost}>
             <Text style={styles.primaryBtnText}>등록</Text>
           </TouchableOpacity>
@@ -204,19 +160,8 @@ export default function App() {
             style={{ marginBottom: 16 }}
           />
 
-          <TextInput
-            placeholder="작성자 (미입력 시 익명)"
-            value={commentAuthor}
-            onChangeText={setCommentAuthor}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="댓글 내용을 입력하세요"
-            value={commentContent}
-            onChangeText={setCommentContent}
-            style={[styles.input, styles.multiline]}
-            multiline
-          />
+          <TextInput placeholder="작성자 (미입력 시 익명)" value={commentAuthor} onChangeText={setCommentAuthor} style={styles.input} />
+          <TextInput placeholder="댓글 내용을 입력하세요" value={commentContent} onChangeText={setCommentContent} style={[styles.input, styles.multiline]} multiline />
           <TouchableOpacity style={styles.primaryBtn} onPress={createComment}>
             <Text style={styles.primaryBtnText}>댓글 등록</Text>
           </TouchableOpacity>
@@ -227,10 +172,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: "#f4f6fb",
-  },
+  safe: { flex: 1, backgroundColor: "#f4f6fb" },
   header: {
     paddingTop: Platform.select({ ios: 0, android: 8 }),
     paddingHorizontal: 16,
@@ -240,117 +182,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  headerTitle: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "700",
-  },
-  headerBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 10,
-  },
-  headerBtnText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  separator: {
-    height: 12,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 14,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    marginBottom: 6,
-  },
-  cardContent: {
-    fontSize: 14,
-    color: "#374151",
-  },
-  metaRow: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  meta: {
-    fontSize: 12,
-    color: "#6b7280",
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "800",
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    marginBottom: 10,
-    fontSize: 14,
-    borderWidth: 1,
-    borderColor: "#e5e7eb",
-  },
-  multiline: {
-    minHeight: 100,
-    textAlignVertical: "top",
-  },
-  primaryBtn: {
-    backgroundColor: "#5b7cfa",
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: "center",
-  },
-  primaryBtnText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  postTitle: {
-    fontSize: 22,
-    fontWeight: "900",
-    marginBottom: 8,
-  },
-  postMeta: {
-    fontSize: 12,
-    color: "#6b7280",
-    marginBottom: 12,
-  },
-  postBody: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: "#111827",
-    marginBottom: 18,
-  },
-  commentsHeader: {
-    marginTop: 8,
-    marginBottom: 8,
-  },
-  commentCard: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 12,
-  },
-  commentContent: {
-    fontSize: 14,
-    color: "#111827",
-  },
-  empty: {
-    textAlign: "center",
-    color: "#9ca3af",
-    paddingVertical: 12,
-  },
+  headerTitle: { color: "#fff", fontSize: 20, fontWeight: "700" },
+  headerBtn: { paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "rgba(255,255,255,0.2)", borderRadius: 10 },
+  headerBtnText: { color: "#fff", fontWeight: "600" },
+  container: { flex: 1, padding: 16 },
+  separator: { height: 12 },
+  card: { backgroundColor: "#fff", borderRadius: 12, padding: 14, shadowColor: "#000", shadowOpacity: 0.08, shadowRadius: 8, elevation: 2 },
+  cardTitle: { fontSize: 16, fontWeight: "700", marginBottom: 6 },
+  cardContent: { fontSize: 14, color: "#374151" },
+  metaRow: { marginTop: 10, flexDirection: "row", justifyContent: "space-between" },
+  meta: { fontSize: 12, color: "#6b7280" },
+  sectionTitle: { fontSize: 18, fontWeight: "800", marginBottom: 10 },
+  input: { backgroundColor: "#fff", borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 10, fontSize: 14, borderWidth: 1, borderColor: "#e5e7eb" },
+  multiline: { minHeight: 100, textAlignVertical: "top" },
+  primaryBtn: { backgroundColor: "#5b7cfa", borderRadius: 10, paddingVertical: 12, alignItems: "center" },
+  primaryBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  postTitle: { fontSize: 22, fontWeight: "900", marginBottom: 8 },
+  postMeta: { fontSize: 12, color: "#6b7280", marginBottom: 12 },
+  postBody: { fontSize: 15, lineHeight: 22, color: "#111827", marginBottom: 18 },
+  commentsHeader: { marginTop: 8, marginBottom: 8 },
+  commentCard: { backgroundColor: "#fff", borderRadius: 10, padding: 12 },
+  commentContent: { fontSize: 14, color: "#111827" },
+  empty: { textAlign: "center", color: "#9ca3af", paddingVertical: 12 },
 });
