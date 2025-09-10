@@ -17,7 +17,7 @@ type Post = {
   createdAt: string;
 };
 
-const API_BASE = ""; // 실서버 붙일 때 사용
+const API_BASE = "";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -63,7 +63,6 @@ export default function App() {
     const author = (newAuthor || "익명").trim();
     if (!title || !content) return alert("제목과 내용을 입력하세요.");
 
-    // 실서버 연동 시 fetch 사용
     const created: Post = { id: uid(), title, content, author, createdAt: now() };
     setPosts((prev) => [created, ...prev]);
     setNewTitle("");
@@ -78,7 +77,6 @@ export default function App() {
     const content = commentContent.trim();
     if (!content) return alert("댓글 내용을 입력하세요.");
 
-    // 실서버 연동 시 fetch 사용
     const created: Comment = { id: uid(), postId: currentPost.id, author, content, createdAt: now() };
     setComments((prev) => [created, ...prev]);
     setCommentAuthor("");
