@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "community-snack",
+    "slug": "community-snack",
+    "scheme": "communitysnack",
+    "orientation": "portrait",
+    "platforms": ["ios", "android", "web"]
+  }
+}
