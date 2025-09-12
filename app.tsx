@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from './src/screens/homescreen';
-import ReviewsScreen from './src/screens/reviewsscreen';
-import CommunityScreen from './src/screens/communityscreen';
-import RecommendScreen from './src/screens/recommendscreen';
-import NotificationScreen from './src/screens/notificationscreen';
+import HomeScreen from './src/screens/HomeScreen';
+import ReviewsScreen from './src/screens/ReviewsScreen';
+import CommunityScreen from './src/screens/CommunityScreen';
+import RecommendScreen from './src/screens/RecommendScreen';
+import NotificationScreen from './src/screens/NotificationScreen';
 
 const Tab = createBottomTabNavigator();
 
