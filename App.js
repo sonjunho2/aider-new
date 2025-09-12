@@ -3,11 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from './src/screens/HomeScreen';
-import ReviewsScreen from './src/screens/ReviewsScreen';
-import CommunityScreen from './src/screens/CommunityScreen';
-import RecommendScreen from './src/screens/RecommendScreen';
-import NotificationScreen from './src/screens/NotificationScreen';
+import HomeScreen from './screens/HomeScreen';
+import ReviewsScreen from './screens/ReviewsScreen';
+import CommunityScreen from './screens/CommunityScreen';
+import RecommendScreen from './screens/RecommendScreen';
+import NotificationScreen from './screens/NotificationScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,9 +39,9 @@ export default function App() {
             backgroundColor: 'white',
             borderTopWidth: 1,
             borderTopColor: '#e0e0e0',
-            height: 60,
-            paddingBottom: 5,
-            paddingTop: 5,
+            height: 90,
+            paddingBottom: 30,
+            paddingTop: 10,
           },
           tabBarLabelStyle: {
             fontSize: 12,
