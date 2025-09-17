@@ -57,12 +57,16 @@ export default function HomeScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={['#667eea', '#764ba2']}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+    <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
+      <LinearGradient
+        colors={['#4c6ef5', '#364fc7']}
+        style={{ paddingBottom: 0 }}
+      >
+        <SafeAreaView>
+        </SafeAreaView>
+      </LinearGradient>
+      
+      <ScrollView style={{ flex: 1, paddingHorizontal: 16, backgroundColor: '#f8f9fa' }} showsVerticalScrollIndicator={false}>
           {/* Header with Home Icon */}
           <View style={{ alignItems: 'center', paddingVertical: 30 }}>
             <Image 
@@ -244,16 +248,16 @@ export default function HomeScreen() {
             )}
           </View>
         </ScrollView>
-
+      </View>
         {/* Dream Registration Modal */}
         <Modal visible={showDreamModal} animationType="slide">
-          <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f8f8' }}>
+          <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
             <View style={{
               flexDirection: 'row',
               alignItems: 'center',
               paddingHorizontal: 20,
               paddingVertical: 15,
-              backgroundColor: '#667eea'
+              backgroundColor: '#4c6ef5'
             }}>
               <TouchableOpacity onPress={() => setShowDreamModal(false)}>
                 <Ionicons name="close" size={24} color="white" />
