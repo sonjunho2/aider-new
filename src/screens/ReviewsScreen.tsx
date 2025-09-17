@@ -163,6 +163,7 @@ export default function ReviewsScreen() {
             </Text>
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
