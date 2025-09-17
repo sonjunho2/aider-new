@@ -29,6 +29,13 @@ export default function NotificationScreen() {
       content: '개인정보 처리방침이 일부 변경되었습니다. 자세한 내용은 설정에서 확인하실 수 있습니다.',
       date: '2024.03.10',
       isImportant: false
+    },
+    {
+      id: 4,
+      title: '딱만원 앱 정식 출시!',
+      content: '딱만원 앱이 정식으로 출시되었습니다! 더 안정적이고 편리한 서비스를 제공하겠습니다.',
+      date: '2024.03.01',
+      isImportant: true
     }
   ];
 
@@ -36,40 +43,40 @@ export default function NotificationScreen() {
     {
       id: 1,
       type: 'point',
-      title: '포인트 적립',
-      content: '김철수님이 회원가입하여 추천 보너스 10,000P가 지급되었습니다.',
+      title: '포인트 적립 완료',
+      content: 'kim_user님이 회원가입하여 추천 보너스 10,000P가 지급되었습니다.',
       date: '2024.03.15 14:30',
       isRead: false
     },
     {
       id: 2,
       type: 'comment',
-      title: '새 댓글',
-      content: '나의 꿈 게시글에 새로운 응원 메시지가 등록되었습니다.',
+      title: '새 응원 메시지',
+      content: '나의 꿈에 새로운 응원 메시지가 등록되었습니다. 확인해보세요!',
       date: '2024.03.15 12:15',
       isRead: false
     },
     {
       id: 3,
       type: 'achievement',
-      title: '목표 달성 축하!',
-      content: '축하합니다! 중간 목표인 50만원을 달성하셨습니다.',
+      title: '중간 목표 달성!',
+      content: '축하합니다! 중간 목표인 50만원을 달성하셨습니다. 최종 목표까지 화이팅!',
       date: '2024.03.14 16:22',
       isRead: true
     },
     {
       id: 4,
       type: 'point',
-      title: '포인트 적립',
-      content: '일일 출석체크로 1,000P가 지급되었습니다.',
+      title: '일일 출석 보너스',
+      content: '일일 출석체크로 1,000P가 지급되었습니다. 내일도 잊지 마세요!',
       date: '2024.03.14 09:00',
       isRead: true
     },
     {
       id: 5,
       type: 'system',
-      title: '시스템 알림',
-      content: '새로운 업데이트가 출시되었습니다. 더 나은 서비스를 경험해보세요!',
+      title: '앱 업데이트 알림',
+      content: '새로운 기능이 추가된 업데이트가 출시되었습니다. 지금 업데이트하세요!',
       date: '2024.03.13 18:00',
       isRead: true
     }
@@ -91,30 +98,51 @@ export default function NotificationScreen() {
   };
 
   return (
-    <LinearGradient colors={['#FFB347', '#FF8C00']} style={{ flex: 1 }}>
+    <LinearGradient colors={['#FFD700', '#FFA500']} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ paddingHorizontal: 20, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>알림 & 공지</Text>
+        {/* Header */}
+        <View style={{ 
+          paddingHorizontal: 20, 
+          paddingVertical: 20,
+          borderBottomWidth: 1,
+          borderBottomColor: 'rgba(255,255,255,0.3)'
+        }}>
+          <Text style={{ 
+            color: 'white', 
+            fontSize: 28, 
+            fontWeight: '800',
+            textAlign: 'center'
+          }}>
+            알림 & 공지
+          </Text>
         </View>
 
         {/* Tab Buttons */}
-        <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 20 }}>
+        <View style={{ 
+          flexDirection: 'row', 
+          paddingHorizontal: 20, 
+          paddingVertical: 16,
+          gap: 12
+        }}>
           <TouchableOpacity
             onPress={() => setActiveTab('공지')}
             style={{
               flex: 1,
-              backgroundColor: activeTab === '공지' ? 'white' : 'rgba(255,255,255,0.3)',
-              paddingVertical: 12,
-              paddingHorizontal: 20,
+              backgroundColor: activeTab === '공지' ? 'white' : 'rgba(255,255,255,0.25)',
+              paddingVertical: 14,
               borderRadius: 25,
-              marginRight: 10,
-              alignItems: 'center'
+              alignItems: 'center',
+              elevation: activeTab === '공지' ? 4 : 0,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
             }}
           >
             <Text style={{ 
               color: activeTab === '공지' ? '#FF6B00' : 'white',
               fontSize: 16,
-              fontWeight: 'bold'
+              fontWeight: '700'
             }}>
               공지사항
             </Text>
@@ -124,52 +152,69 @@ export default function NotificationScreen() {
             onPress={() => setActiveTab('알림')}
             style={{
               flex: 1,
-              backgroundColor: activeTab === '알림' ? 'white' : 'rgba(255,255,255,0.3)',
-              paddingVertical: 12,
-              paddingHorizontal: 20,
+              backgroundColor: activeTab === '알림' ? 'white' : 'rgba(255,255,255,0.25)',
+              paddingVertical: 14,
               borderRadius: 25,
-              alignItems: 'center'
+              alignItems: 'center',
+              elevation: activeTab === '알림' ? 4 : 0,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
             }}
           >
             <Text style={{ 
               color: activeTab === '알림' ? '#FF6B00' : 'white',
               fontSize: 16,
-              fontWeight: 'bold'
+              fontWeight: '700'
             }}>
               알림
             </Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>
+        <ScrollView 
+          style={{ flex: 1, paddingHorizontal: 20 }} 
+          contentContainerStyle={{ paddingVertical: 12 }}
+          showsVerticalScrollIndicator={false}
+        >
           {activeTab === '공지' ? (
-            // Announcements
+            // Announcements Section
             announcements.map((announcement) => (
               <View
                 key={announcement.id}
                 style={{
                   backgroundColor: 'white',
-                  borderRadius: 15,
+                  borderRadius: 16,
                   padding: 20,
-                  marginBottom: 15,
+                  marginBottom: 12,
                   elevation: 4,
                   shadowColor: '#000',
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.1,
                   shadowRadius: 4,
-                  borderLeftWidth: announcement.isImportant ? 4 : 0,
+                  borderLeftWidth: announcement.isImportant ? 5 : 0,
                   borderLeftColor: announcement.isImportant ? '#FF4444' : 'transparent'
                 }}
               >
-                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 12 }}>
                   {announcement.isImportant && (
-                    <Ionicons name="warning" size={20} color="#FF4444" style={{ marginRight: 8, marginTop: 2 }} />
+                    <View style={{
+                      backgroundColor: '#FF4444',
+                      borderRadius: 12,
+                      padding: 4,
+                      marginRight: 12,
+                      marginTop: 2
+                    }}>
+                      <Ionicons name="warning" size={16} color="white" />
+                    </View>
                   )}
                   <Text style={{ 
-                    fontSize: 16, 
-                    fontWeight: 'bold', 
+                    fontSize: 17, 
+                    fontWeight: '700', 
                     color: '#333',
-                    flex: 1 
+                    flex: 1,
+                    lineHeight: 24
                   }}>
                     {announcement.title}
                   </Text>
@@ -178,19 +223,19 @@ export default function NotificationScreen() {
                 <Text style={{ 
                   fontSize: 14, 
                   color: '#666', 
-                  lineHeight: 20,
-                  marginBottom: 10 
+                  lineHeight: 22,
+                  marginBottom: 12 
                 }}>
                   {announcement.content}
                 </Text>
                 
-                <Text style={{ fontSize: 12, color: '#999' }}>
+                <Text style={{ fontSize: 12, color: '#999', fontWeight: '500' }}>
                   {announcement.date}
                 </Text>
               </View>
             ))
           ) : (
-            // Notifications
+            // Notifications Section
             notifications.map((notification) => {
               const iconInfo = getNotificationIcon(notification.type);
               
@@ -198,28 +243,28 @@ export default function NotificationScreen() {
                 <View
                   key={notification.id}
                   style={{
-                    backgroundColor: notification.isRead ? 'white' : '#FFF8E1',
-                    borderRadius: 15,
+                    backgroundColor: notification.isRead ? 'white' : '#FFF9E6',
+                    borderRadius: 16,
                     padding: 20,
-                    marginBottom: 15,
+                    marginBottom: 12,
                     elevation: 4,
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
-                    borderLeftWidth: notification.isRead ? 0 : 4,
+                    borderLeftWidth: notification.isRead ? 0 : 5,
                     borderLeftColor: '#FFD700'
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                     <View style={{
-                      width: 40,
-                      height: 40,
-                      backgroundColor: notification.isRead ? '#f5f5f5' : iconInfo.color,
-                      borderRadius: 20,
+                      width: 44,
+                      height: 44,
+                      backgroundColor: notification.isRead ? '#f8f8f8' : iconInfo.color,
+                      borderRadius: 22,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      marginRight: 15
+                      marginRight: 16
                     }}>
                       <Ionicons 
                         name={iconInfo.name as any} 
@@ -231,9 +276,9 @@ export default function NotificationScreen() {
                     <View style={{ flex: 1 }}>
                       <Text style={{ 
                         fontSize: 16, 
-                        fontWeight: notification.isRead ? 'normal' : 'bold',
+                        fontWeight: notification.isRead ? '600' : '700',
                         color: '#333',
-                        marginBottom: 5 
+                        marginBottom: 6 
                       }}>
                         {notification.title}
                       </Text>
@@ -241,24 +286,24 @@ export default function NotificationScreen() {
                       <Text style={{ 
                         fontSize: 14, 
                         color: '#666', 
-                        lineHeight: 18,
+                        lineHeight: 20,
                         marginBottom: 8 
                       }}>
                         {notification.content}
                       </Text>
                       
-                      <Text style={{ fontSize: 12, color: '#999' }}>
+                      <Text style={{ fontSize: 12, color: '#999', fontWeight: '500' }}>
                         {notification.date}
                       </Text>
                     </View>
                     
                     {!notification.isRead && (
                       <View style={{
-                        width: 8,
-                        height: 8,
+                        width: 10,
+                        height: 10,
                         backgroundColor: '#FF4444',
-                        borderRadius: 4,
-                        marginTop: 5
+                        borderRadius: 5,
+                        marginTop: 6
                       }} />
                     )}
                   </View>
