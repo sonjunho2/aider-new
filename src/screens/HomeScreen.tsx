@@ -42,7 +42,7 @@ export default function HomeScreen() {
     }
   };
 
-  const handleHelpUser = (userId) => {
+  const handleHelpUser = (userId: string) => {
     Alert.alert('도움주기', `${userId}님에게 도움을 주시겠습니까?`);
   };
 
@@ -57,16 +57,12 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
-      <LinearGradient
-        colors={['#4c6ef5', '#364fc7']}
-        style={{ paddingBottom: 0 }}
-      >
-        <SafeAreaView>
-        </SafeAreaView>
-      </LinearGradient>
-      
-      <ScrollView style={{ flex: 1, paddingHorizontal: 16, backgroundColor: '#f8f9fa' }} showsVerticalScrollIndicator={false}>
+    <LinearGradient
+      colors={['#4c6ef5', '#364fc7']}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1, paddingHorizontal: 16, backgroundColor: '#f8f9fa' }} showsVerticalScrollIndicator={false}>
           {/* Header with Home Icon */}
           <View style={{ alignItems: 'center', paddingVertical: 30 }}>
             <Image 
@@ -248,6 +244,8 @@ export default function HomeScreen() {
             )}
           </View>
         </ScrollView>
+
+        {/* Dream Registration Modal */}
         <Modal visible={showDreamModal} animationType="slide">
           <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
             <View style={{
