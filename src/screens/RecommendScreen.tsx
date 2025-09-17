@@ -11,7 +11,7 @@ export default function RecommendScreen() {
       name: 'SMS', 
       icon: 'chatbubbles', 
       color: '#34C759', 
-      url: 'sms:?body=딱만원으로 돈 불리기! 지금 참여해서 함께 꿈을 이뤄보세요!' 
+      url: 'sms:?body=딱만원으로 작은소망! 지금 참여해서 함께 꿈을 이뤄보세요!' 
     },
     { 
       name: '인스타그램', 
