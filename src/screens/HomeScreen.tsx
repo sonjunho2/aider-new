@@ -66,7 +66,7 @@ export default function HomeScreen() {
           {/* Header with Home Icon */}
           <View style={{ alignItems: 'center', paddingVertical: 20 }}>
             <Image 
-              source={require('../assets/homeicon.png')} 
+              source={require('assets/homeicon.png')} 
               style={{ width: 160, height: 50, marginBottom: 12 }}
               resizeMode="contain"
             />
