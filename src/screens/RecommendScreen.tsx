@@ -128,48 +128,47 @@ export default function RecommendScreen() {
                 </TouchableOpacity>
               ))}
               
-              {/* Empty space to balance layout if odd number */}
-              {socialApps.length % 2 !== 0 && (
-                <View style={{ width: '48%' }} />
-              )}
-            </View>
-          </View>
-
-          {/* Bottom Copy Button */}
-          <View style={{ 
-            paddingHorizontal: 20,
-            marginTop: 30 
-          }}>
-            <View style={{
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              borderRadius: 20,
-              padding: 24,
-              alignItems: 'center'
-            }}>
-              <Ionicons name="gift" size={40} color="#FF6B00" style={{ marginBottom: 16 }} />
-              <Text style={{ 
-                fontSize: 18, 
-                fontWeight: '700', 
-                color: '#333',
-                textAlign: 'center',
-                marginBottom: 20
-              }}>
-                친구 추천 혜택
-              </Text>
-              
+              {/* Copy Link Button */}
               <TouchableOpacity
                 onPress={handleCopyLink}
                 style={{
-                  backgroundColor: '#4CAF50',
-                  paddingVertical: 16,
-                  paddingHorizontal: 24,
-                  borderRadius: 25,
+                  width: '48%',
+                  backgroundColor: 'white',
+                  paddingVertical: 30,
+                  paddingHorizontal: 20,
+                  borderRadius: 20,
+                  marginBottom: 16,
                   alignItems: 'center',
-                  width: '100%'
+                  elevation: 6,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 3 },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 6,
+                  borderWidth: 3,
+                  borderColor: '#4CAF50',
                 }}
               >
-                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
-                  추천 주소 복사하기
+                <View style={{
+                  width: 60,
+                  height: 60,
+                  backgroundColor: '#4CAF50',
+                  borderRadius: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 16
+                }}>
+                  <Ionicons 
+                    name="copy" 
+                    size={28} 
+                    color="white" 
+                  />
+                </View>
+                <Text style={{ 
+                  color: '#333', 
+                  fontSize: 16, 
+                  fontWeight: '700'
+                }}>
+                  주소복사
                 </Text>
               </TouchableOpacity>
             </View>
