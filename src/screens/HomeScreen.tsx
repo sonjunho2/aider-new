@@ -248,8 +248,6 @@ export default function HomeScreen() {
             )}
           </View>
         </ScrollView>
-      </View>
-        {/* Dream Registration Modal */}
         <Modal visible={showDreamModal} animationType="slide">
           <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
             <View style={{
