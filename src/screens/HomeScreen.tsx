@@ -12,7 +12,7 @@ export default function HomeScreen() {
   const [myPoints] = useState(245000);
   const [userID] = useState('user123');
   const [dreamProgress] = useState(65);
-  const [myDream, setMyDream] = useState('가족과 함께 제주도 여행가기');
+  const [myDream, setMyDream] = useState(''); // 빈 문자열로 초기화 - 소망 등록 안됨
   const [newDream, setNewDream] = useState('');
   
   const helpUsers = [
@@ -66,13 +66,13 @@ export default function HomeScreen() {
           {/* Header with Home Icon */}
           <View style={{ alignItems: 'center', paddingVertical: 20 }}>
             <Image 
-              source={require('assets/homeicon.png')} 
-              style={{ width: 160, height: 50, marginBottom: 12 }}
+              source={require('../assets/homeicon.png')} 
+              style={{ width: 200, height: 60, marginBottom: 16 }}
               resizeMode="contain"
             />
             
             <Text style={{ 
-              fontSize: 20, 
+              fontSize: 18, 
               color: 'white',
               fontWeight: '700',
               textAlign: 'center'
@@ -85,7 +85,7 @@ export default function HomeScreen() {
           <View style={{
             backgroundColor: 'white',
             borderRadius: 20,
-            padding: 20,
+            padding: 16,
             marginBottom: 16,
             elevation: 6,
             shadowColor: '#000',
@@ -93,17 +93,14 @@ export default function HomeScreen() {
             shadowOpacity: 0.2,
             shadowRadius: 5,
           }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-              <View>
-                <Text style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>아이디</Text>
-                <Text style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>{userID}</Text>
-              </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Text style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>{userID}</Text>
               
               <TouchableOpacity style={{
-                width: 60,
-                height: 60,
+                width: 50,
+                height: 50,
                 backgroundColor: '#f0f0f0',
-                borderRadius: 30,
+                borderRadius: 25,
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderWidth: 3,
@@ -118,7 +115,7 @@ export default function HomeScreen() {
           <View style={{
             backgroundColor: 'white',
             borderRadius: 20,
-            padding: 20,
+            padding: 16,
             marginBottom: 16,
             elevation: 6,
             shadowColor: '#000',
@@ -126,17 +123,14 @@ export default function HomeScreen() {
             shadowOpacity: 0.2,
             shadowRadius: 5,
           }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-              <Ionicons name="star" size={20} color="#FFD700" />
-              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333', marginLeft: 8 }}>
-                내가 도움받은 총 POINT
-              </Text>
-            </View>
+            <Text style={{ fontSize: 16, fontWeight: '600', color: '#333', textAlign: 'center', marginBottom: 12 }}>
+              내가 도움받은 총 POINT
+            </Text>
             
             <View style={{
               backgroundColor: '#FFF8E1',
               borderRadius: 12,
-              padding: 16,
+              padding: 12,
               alignItems: 'center'
             }}>
               <Text style={{ fontSize: 28, fontWeight: '900', color: '#FF6B00' }}>
@@ -157,88 +151,96 @@ export default function HomeScreen() {
             shadowOpacity: 0.2,
             shadowRadius: 5,
           }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-              <Text style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>
-                나의 작은 소망
-              </Text>
+            <Text style={{ fontSize: 18, fontWeight: '700', color: '#333', textAlign: 'center', marginBottom: 16 }}>
+              나의 작은 소망
+            </Text>
+
+            {myDream ? (
+              <View style={{
+                backgroundColor: '#FFF5F5',
+                borderRadius: 12,
+                padding: 20,
+                marginBottom: 16
+              }}>
+                <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', lineHeight: 24 }}>
+                  {myDream}
+                </Text>
+              </View>
+            ) : (
               <TouchableOpacity
                 onPress={() => setShowDreamModal(true)}
                 style={{
-                  width: 36,
-                  height: 36,
-                  backgroundColor: '#FF6B00',
-                  borderRadius: 18,
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  backgroundColor: '#f8f8f8',
+                  borderRadius: 12,
+                  padding: 40,
+                  alignItems: 'center',
+                  marginBottom: 16,
+                  borderWidth: 2,
+                  borderColor: '#ddd',
+                  borderStyle: 'dashed'
                 }}
               >
-                <Ionicons name="add" size={20} color="white" />
+                <Ionicons name="add" size={40} color="#FF6B00" />
+                <Text style={{ fontSize: 14, color: '#666', marginTop: 8 }}>
+                  소망을 등록해주세요
+                </Text>
               </TouchableOpacity>
-            </View>
+            )}
 
-            <View style={{
-              backgroundColor: '#FFF5F5',
-              borderRadius: 12,
-              padding: 16,
-              marginBottom: 16
-            }}>
-              <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', lineHeight: 24 }}>
-                {myDream}
-              </Text>
-            </View>
-
-            {/* Progress Bar */}
-            <View style={{ marginBottom: 16 }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text style={{ fontSize: 14, color: '#666' }}>진행률</Text>
-                <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF6B00' }}>{dreamProgress}%</Text>
-              </View>
-              <View style={{
-                height: 8,
-                backgroundColor: '#f0f0f0',
-                borderRadius: 4,
-                overflow: 'hidden'
-              }}>
+            {/* Progress Bar - only show if dream exists */}
+            {myDream && (
+              <View style={{ marginBottom: 16 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <Text style={{ fontSize: 14, color: '#666' }}>진행률</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF6B00' }}>{dreamProgress}%</Text>
+                </View>
                 <View style={{
-                  width: `${dreamProgress}%`,
-                  height: '100%',
-                  backgroundColor: dreamProgress === 100 ? '#4CAF50' : '#FF6B00',
-                  borderRadius: 4
-                }} />
+                  height: 8,
+                  backgroundColor: '#f0f0f0',
+                  borderRadius: 4,
+                  overflow: 'hidden'
+                }}>
+                  <View style={{
+                    width: `${dreamProgress}%`,
+                    height: '100%',
+                    backgroundColor: dreamProgress === 100 ? '#4CAF50' : '#FF6B00',
+                    borderRadius: 4
+                  }} />
+                </View>
               </View>
-            </View>
+            )}
 
-            {/* Action Button */}
-            {dreamProgress === 100 ? (
-              <TouchableOpacity
-                onPress={() => setShowReviewModal(true)}
-                style={{
-                  backgroundColor: '#4CAF50',
-                  borderRadius: 12,
-                  paddingVertical: 12,
-                  alignItems: 'center',
-                  marginBottom: 12
-                }}
-              >
-                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
-                  후기 작성
-                </Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => setShowComments(true)}
-                style={{
-                  backgroundColor: '#FF69B4',
-                  borderRadius: 12,
-                  paddingVertical: 12,
-                  alignItems: 'center',
-                  marginBottom: 12
-                }}
-              >
-                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
-                  응원 메시지 보기
-                </Text>
-              </TouchableOpacity>
+            {/* Action Button - only show if dream exists */}
+            {myDream && (
+              dreamProgress === 100 ? (
+                <TouchableOpacity
+                  onPress={() => setShowReviewModal(true)}
+                  style={{
+                    backgroundColor: '#4CAF50',
+                    borderRadius: 12,
+                    paddingVertical: 12,
+                    alignItems: 'center'
+                  }}
+                >
+                  <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
+                    후기 작성
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => setShowComments(true)}
+                  style={{
+                    backgroundColor: '#FF69B4',
+                    borderRadius: 12,
+                    paddingVertical: 12,
+                    alignItems: 'center'
+                  }}
+                >
+                  <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
+                    응원 메시지 보기
+                  </Text>
+                </TouchableOpacity>
+              )
             )}
           </View>
         </ScrollView>
