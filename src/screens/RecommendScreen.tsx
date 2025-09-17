@@ -11,7 +11,7 @@ export default function RecommendScreen() {
       name: 'SMS', 
       icon: 'chatbubbles', 
       color: '#34C759', 
-      url: 'sms:?body=딱만원으로 작은소망! 지금 참여해서 함께 꿈을 이뤄보세요!' 
+      url: 'sms:?body=딱만원으로 작은소망 ! 지금 참여해서 함께 꿈을 이뤄보세요!' 
     },
     { 
       name: '인스타그램', 
@@ -50,30 +50,31 @@ export default function RecommendScreen() {
   };
 
   return (
-    <LinearGradient colors={['#667eea', '#764ba2']} style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        {/* Header */}
-        <View style={{ 
-          paddingHorizontal: 20, 
-          paddingVertical: 20,
-          borderBottomWidth: 1,
-          borderBottomColor: 'rgba(255,255,255,0.3)'
-        }}>
-          <Text style={{ 
-            color: 'white', 
-            fontSize: 28, 
-            fontWeight: '800',
-            textAlign: 'center'
+    <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
+      <LinearGradient colors={['#4c6ef5', '#364fc7']} style={{ paddingBottom: 0 }}>
+        <SafeAreaView>
+          {/* Header */}
+          <View style={{ 
+            paddingHorizontal: 20, 
+            paddingVertical: 25,
           }}>
-            추천하기
-          </Text>
-        </View>
+            <Text style={{ 
+              color: 'white', 
+              fontSize: 28, 
+              fontWeight: '800',
+              textAlign: 'center'
+            }}>
+              추천하기
+            </Text>
+          </View>
+        </SafeAreaView>
+      </LinearGradient>
 
-        <ScrollView 
-          style={{ flex: 1 }} 
-          contentContainerStyle={{ paddingVertical: 30 }}
-          showsVerticalScrollIndicator={false}
-        >
+      <ScrollView 
+        style={{ flex: 1 }} 
+        contentContainerStyle={{ paddingVertical: 30, backgroundColor: '#f8f9fa' }}
+        showsVerticalScrollIndicator={false}
+      >
           {/* Social Media Grid */}
           <View style={{ paddingHorizontal: 20 }}>
             <View style={{ 
@@ -174,7 +175,6 @@ export default function RecommendScreen() {
             </View>
           </View>
         </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+      </View>
   );
 }
