@@ -77,7 +77,7 @@ export default function HomeScreen() {
               fontWeight: '700',
               textAlign: 'center'
             }}>
-              만원으로 시작하는 작은소망 APP
+              만원으로 시작하는 작은소망
             </Text>
           </View>
 
