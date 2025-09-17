@@ -1,180 +1,410 @@
-// screens/RecommendScreen.tsx  
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Linking, Alert } from 'react-native';
+// screens/HomeScreen.tsx
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function RecommendScreen() {
-  const socialApps = [
-    { 
-      name: 'SMS', 
-      icon: 'chatbubbles', 
-      color: '#34C759', 
-      url: 'sms:?body=딱만원으로 돈 불리기! 지금 참여해서 함께 꿈을 이뤄보세요!' 
-    },
-    { 
-      name: '인스타그램', 
-      icon: 'logo-instagram', 
-      color: '#E4405F', 
-      url: 'instagram://share' 
-    },
-    { 
-      name: '카카오톡', 
-      icon: 'chatbubble-ellipses', 
-      color: '#FEE500', 
-      url: 'kakaotalk://' 
-    },
-    { 
-      name: '텔레그램', 
-      icon: 'paper-plane', 
-      color: '#0088CC', 
-      url: 'tg://' 
-    },
-    { 
-      name: '페이스북', 
-      icon: 'logo-facebook', 
-      color: '#1877F2', 
-      url: 'fb://' 
-    }
+export default function HomeScreen() {
+  const [showComments, setShowComments] = useState(false);
+  const [showDreamModal, setShowDreamModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [myPoints] = useState(245000);
+  const [userID] = useState('user123');
+  const [dreamProgress] = useState(65);
+  const [myDream, setMyDream] = useState('가족과 함께 제주도 여행가기');
+  const [newDream, setNewDream] = useState('');
+  
+  const helpUsers = [
+    { id: 'friend001', helped: false },
+    { id: 'family02', helped: true },
+    { id: 'neighbor3', helped: false },
+    { id: 'coworker4', helped: true },
+    { id: 'buddy_05', helped: false }
   ];
 
-  const handleSocialPress = (app) => {
-    Linking.openURL(app.url).catch(() => {
-      Alert.alert('알림', `${app.name} 앱을 찾을 수 없습니다.`);
-    });
+  const supporters = [
+    { id: 1, name: '김철수', comment: '꿈을 이루시길 응원합니다!', date: '2024.03.15' },
+    { id: 2, name: '이영희', comment: '항상 파이팅하세요!', date: '2024.03.14' },
+    { id: 3, name: '박민수', comment: '좋은 결과 있으시길!', date: '2024.03.13' },
+    { id: 4, name: '정수진', comment: '응원하고 있어요', date: '2024.03.12' },
+    { id: 5, name: '최동환', comment: '꼭 성공하세요!', date: '2024.03.11' },
+  ];
+
+  const handleDreamSubmit = () => {
+    if (newDream.trim()) {
+      setMyDream(newDream);
+      setNewDream('');
+      setShowDreamModal(false);
+      Alert.alert('완료', '소망이 등록되었습니다!');
+    } else {
+      Alert.alert('알림', '소망 내용을 입력해주세요.');
+    }
   };
 
-  const handleCopyLink = () => {
-    Alert.alert('복사 완료', '추천 주소가 복사되었습니다!');
+  const handleHelpUser = (userId) => {
+    Alert.alert('도움주기', `${userId}님에게 도움을 주시겠습니까?`);
+  };
+
+  const handleRegisterDream = () => {
+    const allHelped = helpUsers.every(user => user.helped);
+    if (allHelped) {
+      Alert.alert('성공', '소망이 등록되었습니다! 이제 다른 사람들의 도움을 받을 수 있어요.');
+      setShowDreamModal(false);
+    } else {
+      Alert.alert('알림', '5명 모두에게 도움을 주신 후 등록할 수 있습니다.');
+    }
   };
 
   return (
-    <LinearGradient colors={['#667eea', '#764ba2']} style={{ flex: 1 }}>
+    <LinearGradient
+      colors={['#667eea', '#764ba2']}
+      style={{ flex: 1 }}
+    >
       <SafeAreaView style={{ flex: 1 }}>
-        {/* Header */}
-        <View style={{ 
-          paddingHorizontal: 20, 
-          paddingVertical: 20,
-          borderBottomWidth: 1,
-          borderBottomColor: 'rgba(255,255,255,0.3)'
-        }}>
-          <Text style={{ 
-            color: 'white', 
-            fontSize: 28, 
-            fontWeight: '800',
-            textAlign: 'center'
-          }}>
-            추천하기
-          </Text>
-        </View>
-
-        <ScrollView 
-          style={{ flex: 1 }} 
-          contentContainerStyle={{ paddingVertical: 30 }}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Social Media Grid */}
-          <View style={{ paddingHorizontal: 20 }}>
-            <View style={{ 
-              flexDirection: 'row', 
-              flexWrap: 'wrap', 
-              justifyContent: 'space-between',
-              marginBottom: 20
+        <ScrollView style={{ flex: 1, paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
+          {/* Header with Home Icon */}
+          <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+            <View style={{
+              width: 200,
+              height: 80,
+              backgroundColor: 'white',
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              elevation: 8,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 6,
+              borderWidth: 3,
+              borderColor: '#FFD700',
+              marginBottom: 12
             }}>
-              {socialApps.map((app, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={{
-                    width: '48%',
-                    backgroundColor: 'white',
-                    paddingVertical: 30,
-                    paddingHorizontal: 20,
-                    borderRadius: 20,
-                    marginBottom: 16,
-                    alignItems: 'center',
-                    elevation: 6,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 6,
-                    borderWidth: 3,
-                    borderColor: app.color,
-                  }}
-                  onPress={() => handleSocialPress(app)}
-                >
-                  <View style={{
-                    width: 60,
-                    height: 60,
-                    backgroundColor: app.color,
-                    borderRadius: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: 16
-                  }}>
-                    <Ionicons 
-                      name={app.icon as any} 
-                      size={28} 
-                      color={app.name === '카카오톡' ? 'black' : 'white'} 
-                    />
-                  </View>
-                  <Text style={{ 
-                    color: '#333', 
-                    fontSize: 16, 
-                    fontWeight: '700'
-                  }}>
-                    {app.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-              
-              {/* Empty space to balance layout if odd number */}
-              {socialApps.length % 2 !== 0 && (
-                <View style={{ width: '48%' }} />
-              )}
+              <Image 
+                source={require('../assets/homeicon.png')} 
+                style={{ width: 160, height: 50 }}
+                resizeMode="contain"
+              />
             </View>
+            
+            <Text style={{ 
+              fontSize: 20, 
+              color: 'white',
+              fontWeight: '700',
+              textAlign: 'center'
+            }}>
+              만원으로 시작하는 돈 불리기!
+            </Text>
           </View>
 
-          {/* Bottom Copy Button */}
-          <View style={{ 
-            paddingHorizontal: 20,
-            marginTop: 30 
+          {/* User Profile Section */}
+          <View style={{
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 20,
+            marginBottom: 16,
+            elevation: 6,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 3 },
+            shadowOpacity: 0.2,
+            shadowRadius: 5,
           }}>
-            <View style={{
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              borderRadius: 20,
-              padding: 24,
-              alignItems: 'center'
-            }}>
-              <Ionicons name="gift" size={40} color="#FF6B00" style={{ marginBottom: 16 }} />
-              <Text style={{ 
-                fontSize: 18, 
-                fontWeight: '700', 
-                color: '#333',
-                textAlign: 'center',
-                marginBottom: 20
-              }}>
-                친구 추천 혜택
-              </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+              <View>
+                <Text style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>아이디</Text>
+                <Text style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>{userID}</Text>
+              </View>
               
-              <TouchableOpacity
-                onPress={handleCopyLink}
-                style={{
-                  backgroundColor: '#4CAF50',
-                  paddingVertical: 16,
-                  paddingHorizontal: 24,
-                  borderRadius: 25,
-                  alignItems: 'center',
-                  width: '100%'
-                }}
-              >
-                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
-                  추천 주소 복사하기
-                </Text>
+              <TouchableOpacity style={{
+                width: 60,
+                height: 60,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 3,
+                borderColor: '#FFD700'
+              }}>
+                <Ionicons name="person" size={24} color="#666" />
               </TouchableOpacity>
             </View>
           </View>
+
+          {/* Points Display */}
+          <View style={{
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 20,
+            marginBottom: 16,
+            elevation: 6,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 3 },
+            shadowOpacity: 0.2,
+            shadowRadius: 5,
+          }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+              <Ionicons name="star" size={20} color="#FFD700" />
+              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333', marginLeft: 8 }}>
+                내가 도움받은 총 POINT
+              </Text>
+            </View>
+            
+            <View style={{
+              backgroundColor: '#FFF8E1',
+              borderRadius: 12,
+              padding: 16,
+              alignItems: 'center'
+            }}>
+              <Text style={{ fontSize: 28, fontWeight: '900', color: '#FF6B00' }}>
+                {myPoints.toLocaleString()} P
+              </Text>
+            </View>
+          </View>
+
+          {/* My Dream Section */}
+          <View style={{
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 20,
+            marginBottom: 20,
+            elevation: 6,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 3 },
+            shadowOpacity: 0.2,
+            shadowRadius: 5,
+          }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+              <Text style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>
+                나의 작은 소망
+              </Text>
+              <TouchableOpacity
+                onPress={() => setShowDreamModal(true)}
+                style={{
+                  width: 36,
+                  height: 36,
+                  backgroundColor: '#FF6B00',
+                  borderRadius: 18,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <Ionicons name="add" size={20} color="white" />
+              </TouchableOpacity>
+            </View>
+
+            <View style={{
+              backgroundColor: '#FFF5F5',
+              borderRadius: 12,
+              padding: 16,
+              marginBottom: 16
+            }}>
+              <Text style={{ fontSize: 16, color: '#333', textAlign: 'center', lineHeight: 24 }}>
+                {myDream}
+              </Text>
+            </View>
+
+            {/* Progress Bar */}
+            <View style={{ marginBottom: 16 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+                <Text style={{ fontSize: 14, color: '#666' }}>진행률</Text>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF6B00' }}>{dreamProgress}%</Text>
+              </View>
+              <View style={{
+                height: 8,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 4,
+                overflow: 'hidden'
+              }}>
+                <View style={{
+                  width: `${dreamProgress}%`,
+                  height: '100%',
+                  backgroundColor: dreamProgress === 100 ? '#4CAF50' : '#FF6B00',
+                  borderRadius: 4
+                }} />
+              </View>
+            </View>
+
+            {/* Action Button */}
+            {dreamProgress === 100 ? (
+              <TouchableOpacity
+                onPress={() => setShowReviewModal(true)}
+                style={{
+                  backgroundColor: '#4CAF50',
+                  borderRadius: 12,
+                  paddingVertical: 12,
+                  alignItems: 'center',
+                  marginBottom: 12
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
+                  후기 작성
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => setShowComments(true)}
+                style={{
+                  backgroundColor: '#FF69B4',
+                  borderRadius: 12,
+                  paddingVertical: 12,
+                  alignItems: 'center',
+                  marginBottom: 12
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 16, fontWeight: '700' }}>
+                  응원 메시지 보기
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </ScrollView>
+
+        {/* Dream Registration Modal */}
+        <Modal visible={showDreamModal} animationType="slide">
+          <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f8f8' }}>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: 20,
+              paddingVertical: 15,
+              backgroundColor: '#667eea'
+            }}>
+              <TouchableOpacity onPress={() => setShowDreamModal(false)}>
+                <Ionicons name="close" size={24} color="white" />
+              </TouchableOpacity>
+              <Text style={{ color: 'white', fontSize: 18, fontWeight: '700', marginLeft: 15 }}>
+                소망 등록
+              </Text>
+            </View>
+
+            <ScrollView style={{ flex: 1, padding: 20 }}>
+              {/* My Dream Input */}
+              <View style={{
+                backgroundColor: 'white',
+                borderRadius: 15,
+                padding: 20,
+                marginBottom: 20,
+                elevation: 4
+              }}>
+                <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 12 }}>
+                  내 소망 등록
+                </Text>
+                <TextInput
+                  placeholder="이루고 싶은 소망을 입력해주세요"
+                  value={newDream}
+                  onChangeText={setNewDream}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: '#ddd',
+                    borderRadius: 8,
+                    padding: 12,
+                    fontSize: 16
+                  }}
+                  multiline
+                />
+              </View>
+
+              {/* Help 5 Users */}
+              <View style={{
+                backgroundColor: 'white',
+                borderRadius: 15,
+                padding: 20,
+                marginBottom: 20,
+                elevation: 4
+              }}>
+                <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 16 }}>
+                  5명에게 도움주기
+                </Text>
+                {helpUsers.map((user, index) => (
+                  <View key={index} style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingVertical: 12,
+                    borderBottomWidth: index < helpUsers.length - 1 ? 1 : 0,
+                    borderBottomColor: '#f0f0f0'
+                  }}>
+                    <Text style={{ fontSize: 16, color: '#333' }}>{user.id}</Text>
+                    <TouchableOpacity
+                      onPress={() => handleHelpUser(user.id)}
+                      style={{
+                        backgroundColor: user.helped ? '#4CAF50' : '#FF6B00',
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        borderRadius: 20
+                      }}
+                    >
+                      <Text style={{ color: 'white', fontSize: 14, fontWeight: '600' }}>
+                        {user.helped ? '완료' : '도움주기'}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </View>
+
+              {/* Register Button */}
+              <TouchableOpacity
+                onPress={handleRegisterDream}
+                style={{
+                  backgroundColor: '#667eea',
+                  borderRadius: 15,
+                  paddingVertical: 16,
+                  alignItems: 'center',
+                  marginBottom: 30
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
+                  등록하기
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </SafeAreaView>
+        </Modal>
+
+        {/* Comments Modal */}
+        <Modal visible={showComments} animationType="slide">
+          <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f8f8' }}>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: 20,
+              paddingVertical: 15,
+              backgroundColor: '#667eea'
+            }}>
+              <TouchableOpacity onPress={() => setShowComments(false)}>
+                <Ionicons name="arrow-back" size={24} color="white" />
+              </TouchableOpacity>
+              <Text style={{ color: 'white', fontSize: 18, fontWeight: '700', marginLeft: 15 }}>
+                응원 메시지
+              </Text>
+            </View>
+
+            <ScrollView style={{ flex: 1, padding: 20 }}>
+              {supporters.map((item) => (
+                <View key={item.id} style={{
+                  backgroundColor: 'white',
+                  borderRadius: 15,
+                  padding: 20,
+                  marginBottom: 12,
+                  elevation: 2
+                }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
+                      {item.name}
+                    </Text>
+                    <Text style={{ fontSize: 12, color: '#999' }}>
+                      {item.date}
+                    </Text>
+                  </View>
+                  <Text style={{ fontSize: 14, color: '#666', lineHeight: 20 }}>
+                    {item.comment}
+                  </Text>
+                </View>
+              ))}
+            </ScrollView>
+          </SafeAreaView>
+        </Modal>
       </SafeAreaView>
     </LinearGradient>
   );
