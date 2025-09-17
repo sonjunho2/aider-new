@@ -64,29 +64,13 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
           {/* Header with Home Icon */}
-          <View style={{ alignItems: 'center', paddingVertical: 20 }}>
-            <View style={{
-              width: 200,
-              height: 80,
-              backgroundColor: 'white',
-              borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              elevation: 8,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 6,
-              borderWidth: 3,
-              borderColor: '#FFD700',
-              marginBottom: 12
-            }}>
-              <Image 
-                source={require('../assets/homeicon.png')} 
-                style={{ width: 160, height: 50 }}
-                resizeMode="contain"
-              />
-            </View>
+    <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+      <Image 
+        source={require('assets/homeicon.png')} 
+        style={{ width: '100%', height: 80 }}
+        resizeMode="contain"
+      />
+    </View>
             
             <Text style={{ 
               fontSize: 20, 
@@ -94,7 +78,7 @@ export default function HomeScreen() {
               fontWeight: '700',
               textAlign: 'center'
             }}>
-              만원으로 시작하는 돈 불리기!
+              만원으로 시작하는 서로도움 APP
             </Text>
           </View>
 
