@@ -82,10 +82,11 @@ export default function HomeScreen() {
               marginBottom: 12
             }}>
               <Image 
-                source={require('assets/homeicon.png')} 
-                style={{ width: 160, height: 50 }}
-                resizeMode="contain"
-              />
+  source={{ uri: 'https://your-cdn.com/homeicon.png' }} 
+  style={{ width: '100%', height: 80 }}
+  resizeMode="contain"
+/>
+
             </View>
             
             <Text style={{ 
