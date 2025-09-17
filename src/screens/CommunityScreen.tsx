@@ -100,7 +100,7 @@ export default function CommunityScreen() {
   };
 
   return (
-    <LinearGradient colors={['#FFD700', '#FFA500']} style={{ flex: 1 }}>
+    <LinearGradient colors={['#667eea', '#764ba2']} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ 
