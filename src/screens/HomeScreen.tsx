@@ -64,10 +64,10 @@ export default function HomeScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, paddingHorizontal: 16 }} showsVerticalScrollIndicator={false}>
           {/* Header with Home Icon */}
-          <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+          <View style={{ alignItems: 'center', paddingVertical: 30 }}>
             <Image 
               source={require('assets/homeicon.png')} 
-              style={{ width: 200, height: 60, marginBottom: 16 }}
+              style={{ width: 280, height: 80, marginBottom: 20 }}
               resizeMode="contain"
             />
             
