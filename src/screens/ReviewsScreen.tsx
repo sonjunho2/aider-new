@@ -38,7 +38,7 @@ export default function ReviewsScreen() {
   ];
 
   return (
-    <LinearGradient colors={['#FFD700', '#FFA500']} style={{ flex: 1 }}>
+    <LinearGradient colors={['#FFC107', '#FF9800']} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ 
@@ -82,7 +82,7 @@ export default function ReviewsScreen() {
                 <View style={{ 
                   width: 50, 
                   height: 50, 
-                  backgroundColor: '#FF6B00', 
+                  backgroundColor: '#FF9800', 
                   borderRadius: 25, 
                   justifyContent: 'center', 
                   alignItems: 'center',
@@ -107,12 +107,12 @@ export default function ReviewsScreen() {
                 padding: 16, 
                 marginBottom: 16,
                 borderLeftWidth: 4,
-                borderLeftColor: '#FFD700'
+                borderLeftColor: '#FFC107'
               }}>
                 <Text style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>
                   달성한 꿈
                 </Text>
-                <Text style={{ fontSize: 16, fontWeight: '700', color: '#FF6B00' }}>
+                <Text style={{ fontSize: 16, fontWeight: '700', color: '#FF9800' }}>
                   {review.dreamTitle}
                 </Text>
               </View>
@@ -143,7 +143,7 @@ export default function ReviewsScreen() {
             marginBottom: 20,
             alignItems: 'center'
           }}>
-            <Ionicons name="trophy" size={50} color="#FFD700" style={{ marginBottom: 16 }} />
+            <Ionicons name="trophy" size={50} color="#FFC107" style={{ marginBottom: 16 }} />
             <Text style={{ 
               fontSize: 20, 
               fontWeight: '800', 
