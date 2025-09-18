@@ -85,20 +85,20 @@ export default function NotificationScreen() {
   const getNotificationIcon = (type) => {
     switch (type) {
       case 'point':
-        return { name: 'star', color: '#FFD700' };
+        return { name: 'star', color: '#FFC107' };
       case 'comment':
         return { name: 'chatbubble', color: '#4CAF50' };
       case 'achievement':
-        return { name: 'trophy', color: '#FF6B00' };
+        return { name: 'trophy', color: '#FF9800' };
       case 'system':
-        return { name: 'settings', color: '#2196F3' };
+        return { name: 'settings', color: '#FF9800' };
       default:
         return { name: 'notifications', color: '#666' };
     }
   };
 
   return (
-    <LinearGradient colors={['#667eea', '#764ba2']} style={{ flex: 1 }}>
+    <LinearGradient colors={['#FFC107', '#FF9800']]} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ 
