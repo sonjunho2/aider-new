@@ -98,7 +98,7 @@ export default function NotificationScreen() {
   };
 
   return (
-    <LinearGradient colors={['#FFC107', '#FF9800']]} style={{ flex: 1 }}>
+    <LinearGradient colors={['#FFC107', '#FF9800']} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ 
