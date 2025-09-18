@@ -140,7 +140,7 @@ export default function NotificationScreen() {
             }}
           >
             <Text style={{ 
-              color: activeTab === '공지' ? '#FF6B00' : 'white',
+              color: activeTab === '공지' ? '#FF9800' : 'white',
               fontSize: 16,
               fontWeight: '700'
             }}>
@@ -164,7 +164,7 @@ export default function NotificationScreen() {
             }}
           >
             <Text style={{ 
-              color: activeTab === '알림' ? '#FF6B00' : 'white',
+              color: activeTab === '알림' ? '#FF9800' : 'white',
               fontSize: 16,
               fontWeight: '700'
             }}>
@@ -253,7 +253,7 @@ export default function NotificationScreen() {
                     shadowOpacity: 0.1,
                     shadowRadius: 4,
                     borderLeftWidth: notification.isRead ? 0 : 5,
-                    borderLeftColor: '#FFD700'
+                    borderLeftColor: '#FFC107'
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>

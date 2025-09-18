@@ -58,7 +58,7 @@ export default function ReviewsScreen() {
         </View>
 
         <ScrollView 
-          style={{ flex: 1, paddingHorizontal: 20, backgroundColor: '#f8f9fa' }} 
+          style={{ flex: 1, paddingHorizontal: 20, backgroundColor: '#FFF8E1' }} 
           contentContainerStyle={{ paddingVertical: 20 }}
           showsVerticalScrollIndicator={false}
         >

@@ -188,7 +188,7 @@ export default function CommunityScreen() {
               alignItems: 'center', 
               paddingHorizontal: 20, 
               paddingVertical: 16, 
-              backgroundColor: '#FF6B00',
+              backgroundColor: '#FF9800',
               justifyContent: 'space-between'
             }}>
               <TouchableOpacity onPress={() => setShowWriteModal(false)}>
@@ -249,7 +249,7 @@ export default function CommunityScreen() {
               alignItems: 'center', 
               paddingHorizontal: 20, 
               paddingVertical: 16, 
-              backgroundColor: '#FF6B00' 
+              backgroundColor: '#FF9800' 
             }}>
               <TouchableOpacity onPress={() => setShowPostModal(false)}>
                 <Ionicons name="arrow-back" size={24} color="white" />
@@ -266,7 +266,7 @@ export default function CommunityScreen() {
                     {selectedPost.title}
                   </Text>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-                    <Text style={{ fontSize: 14, color: '#FF6B00', fontWeight: '600' }}>
+                    <Text style={{ fontSize: 14, color: '#FF9800', fontWeight: '600' }}>
                       {selectedPost.author}
                     </Text>
                     <Text style={{ fontSize: 14, color: '#666' }}>
@@ -291,7 +291,7 @@ export default function CommunityScreen() {
                       elevation: 2 
                     }}>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-                        <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF6B00' }}>
+                        <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF9800' }}>
                           {comment.author}
                         </Text>
                         <Text style={{ fontSize: 12, color: '#999' }}>
@@ -332,7 +332,7 @@ export default function CommunityScreen() {
               <TouchableOpacity
                 onPress={handleAddComment}
                 style={{
-                  backgroundColor: '#FF6B00',
+                  backgroundColor: '#FF9800',
                   borderRadius: 20,
                   paddingHorizontal: 20,
                   paddingVertical: 12,

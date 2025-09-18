@@ -180,7 +180,7 @@ export default function HomeScreen() {
                   borderStyle: 'dashed'
                 }}
               >
-                <Ionicons name="add" size={40} color="#FF6B00" />
+                <Ionicons name="add" size={40} color= "#FF9800" />
                 <Text style={{ fontSize: 14, color: '#666', marginTop: 8 }}>
                   소망을 등록해주세요
                 </Text>
@@ -192,7 +192,7 @@ export default function HomeScreen() {
               <View style={{ marginBottom: 16 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
                   <Text style={{ fontSize: 14, color: '#666' }}>진행률</Text>
-                  <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF6B00' }}>{dreamProgress}%</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '600', color: '#FF9800' }}>{dreamProgress}%</Text>
                 </View>
                 <View style={{
                   height: 8,
@@ -203,7 +203,7 @@ export default function HomeScreen() {
                   <View style={{
                     width: `${dreamProgress}%`,
                     height: '100%',
-                    backgroundColor: dreamProgress === 100 ? '#4CAF50' : '#FF6B00',
+                    backgroundColor: dreamProgress === 100 ? '#4CAF50' : '#FF9800',
                     borderRadius: 4
                   }} />
                 </View>
@@ -230,7 +230,7 @@ export default function HomeScreen() {
                 <TouchableOpacity
                   onPress={() => setShowComments(true)}
                   style={{
-                    backgroundColor: '#FF69B4',
+                    backgroundColor: '#FF9800',
                     borderRadius: 12,
                     paddingVertical: 12,
                     alignItems: 'center'
@@ -247,7 +247,7 @@ export default function HomeScreen() {
 
         {/* Dream Registration Modal */}
         <Modal visible={showDreamModal} animationType="slide">
-          <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
+          <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF8E1' }}>
             <View style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -314,7 +314,7 @@ export default function HomeScreen() {
                     <TouchableOpacity
                       onPress={() => handleHelpUser(user.id)}
                       style={{
-                        backgroundColor: user.helped ? '#4CAF50' : '#FF6B00',
+                        backgroundColor: user.helped ? '#4CAF50' : #FF9800',
                         paddingHorizontal: 16,
                         paddingVertical: 8,
                         borderRadius: 20
