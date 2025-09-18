@@ -1,22 +1,11 @@
-/src/theme/styles.ts
-import { StyleSheet } from 'react-native';
-import colors from './colors';
+/src/theme/colors.ts
+const colors = {
+  primary: '#667eea',
+  background: '#F7F7FB',
+  card: '#FFFFFF',
+  text: '#111111',
+  border: '#E6E6EA',
+  muted: 'gray'
+};
 
-export const commonStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    padding: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 12,
-  },
-  text: {
-    fontSize: 16,
-    color: colors.text,
-  },
-});
-
+export default colors;
