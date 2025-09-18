@@ -100,7 +100,7 @@ export default function CommunityScreen() {
   };
 
   return (
-    <LinearGradient colors={['#667eea', '#764ba2']} style={{ flex: 1 }}>
+    <LinearGradient colors={['#FFC107', '#FF9800']} style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* Header */}
         <View style={{ 
@@ -133,7 +133,7 @@ export default function CommunityScreen() {
               shadowRadius: 4,
             }}
           >
-            <Text style={{ color: '#FF6B00', fontSize: 16, fontWeight: '700' }}>
+            <Text style={{ color: '#FF9800', fontSize: 16, fontWeight: '700' }}>
               글쓰기
             </Text>
           </TouchableOpacity>
@@ -163,7 +163,7 @@ export default function CommunityScreen() {
                 {post.content}
               </Text>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ fontSize: 14, color: '#FF6B00', fontWeight: '600' }}>
+                <Text style={{ fontSize: 14, color: '#FF9800', fontWeight: '600' }}>
                   {post.author}
                 </Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
