@@ -1,7 +1,8 @@
+/app.json
 {
   "expo": {
-    "name": "ANDER",
-    "slug": "ander-app",
+    "name": "Money Doubling",
+    "slug": "money-doubling-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,20 +17,18 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ander.dreamapp"
+      "bundleIdentifier": "com.sonjunho2.moneydoubling"
     },
     "android": {
+      "package": "com.sonjunho2.moneydoubling",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#667eea"
-      },
-      "package": "com.ander.dreamapp"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-font"
-    ]
+    "plugins": []
   }
 }
