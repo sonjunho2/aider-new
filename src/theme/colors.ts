@@ -1,13 +1,11 @@
-// src/theme/colors.ts
-export const colors = {
-  brandPrimary: '#FF9800',   // 오렌지
-  brandGold:    '#FFC107',   // 골드
-  bgSoft:       '#FFF8E1',   // 크림 배경
-  textPrimary:  '#212121',
-  textSecondary:'#616161',
-  white:        '#FFFFFF',
-  black:        '#000000',
+/src/theme/colors.ts
+const colors = {
+  primary: '#667eea',
+  background: '#F7F7FB',
+  card: '#FFFFFF',
+  text: '#111111',
+  border: '#E6E6EA',
+  muted: '#888888'
 };
-export const gradients = {
-  brand: [ '#FFC107', '#FF9800' ],
-};
+
+export default colors;
