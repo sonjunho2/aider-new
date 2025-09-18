@@ -1,77 +1,57 @@
 /App.js
 import React from 'react';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { enableScreens } from 'react-native-screens';
-import { StatusBar } from 'expo-status-bar';
 
 import HomeScreen from './src/screens/HomeScreen';
 import ReviewsScreen from './src/screens/ReviewsScreen';
 import CommunityScreen from './src/screens/CommunityScreen';
 import RecommendScreen from './src/screens/RecommendScreen';
 import NotificationScreen from './src/screens/NotificationScreen';
-import colors from './src/theme/colors';
-
-enableScreens();
 
 const Tab = createBottomTabNavigator();
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: colors.background || '#F7F7FB',
-    primary: colors.primary || '#FF6B00',
-    card: colors.card || '#FFFFFF',
-    text: colors.text || '#000000',
-    border: colors.border || '#E6E6EA',
-  },
-};
-
 export default function App() {
   return (
-    <NavigationContainer theme={theme}>
-      <StatusBar style="dark" />
+    <NavigationContainer>
+      <StatusBar style="light" backgroundColor="#667eea" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: colors.muted || '#888',
+          tabBarIcon: ({ focused, color, size }) => {
+            // ↓ TypeScript 타입 표기 제거 (JS 문법으로 고정)
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Reviews') {
+              iconName = focused ? 'star' : 'star-outline';
+            } else if (route.name === 'Community') {
+              iconName = focused ? 'people' : 'people-outline';
+            } else if (route.name === 'Recommend') {
+              iconName = focused ? 'share-social' : 'share-social-outline';
+            } else {
+              iconName = focused ? 'notifications' : 'notifications-outline';
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: '#667eea',
+          tabBarInactiveTintColor: 'gray',
           tabBarStyle: {
-            backgroundColor: colors.card || '#FFFFFF',
+            backgroundColor: 'white',
             borderTopWidth: 1,
-            borderTopColor: colors.border || '#E6E6EA',
-            height: 80,
-            paddingBottom: 10,
-            paddingTop: 6,
+            borderTopColor: '#e0e0e0',
+            height: 60,
+            paddingBottom: 5,
+            paddingTop: 5,
           },
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: '600',
-            marginBottom: 2,
           },
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName = 'home-outline';
-            switch (route.name) {
-              case 'Home':
-                iconName = focused ? 'home' : 'home-outline';
-                break;
-              case 'Reviews':
-                iconName = focused ? 'star' : 'star-outline';
-                break;
-              case 'Community':
-                iconName = focused ? 'people' : 'people-outline';
-                break;
-              case 'Recommend':
-                iconName = focused ? 'share-social' : 'share-social-outline';
-                break;
-              case 'Notifications':
-                iconName = focused ? 'notifications' : 'notifications-outline';
-                break;
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
+          headerShown: false,
         })}
       >
         <Tab.Screen
@@ -97,7 +77,7 @@ export default function App() {
         <Tab.Screen
           name="Notifications"
           component={NotificationScreen}
-          options={{ tabBarLabel: '알림공지' }}
+          options={{ tabBarLabel: '알림및공지' }}
         />
       </Tab.Navigator>
     </NavigationContainer>
