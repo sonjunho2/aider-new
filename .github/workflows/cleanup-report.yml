@@ -1,0 +1,34 @@
+name: Cleanup Report
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci || npm i
+      - run: npm i -D unimported ts-prune
+      - name: Unused files (unimported)
+        run: npx unimported -f json > unimported.json || true
+      - name: Unused TS symbols (ts-prune)
+        run: npx ts-prune > ts-prune.txt || true
+      - name: Grep unused assets
+        run: |
+          touch unused-assets.txt
+          find assets -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" -o -name "*.ttf" -o -name "*.otf" -o -name "*.mp3" -o -name "*.mp4" \) | while read f; do
+            bn=$(basename "$f")
+            rg -n "$bn" src || echo "UNUSED_ASSET:$f"
+          done | grep '^UNUSED_ASSET:' | cut -d: -f2 > unused-assets.txt || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cleanup-report
+          path: |
+            unimported.json
+            ts-prune.txt
+            unused-assets.txt
