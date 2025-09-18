@@ -58,11 +58,11 @@ export default function HomeScreen() {
 
   return (
     <LinearGradient
-      colors={['#4c6ef5', '#364fc7']}
+      colors={['#FFC107', '#FF9800']}
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, paddingHorizontal: 16, backgroundColor: '#f8f9fa' }} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{ flex: 1, paddingHorizontal: 16, backgroundColor: '#FFF8E1' }} showsVerticalScrollIndicator={false}>
           {/* Header with Home Icon */}
           <View style={{ alignItems: 'center', paddingVertical: 30 }}>
             <Image 
@@ -104,7 +104,7 @@ export default function HomeScreen() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderWidth: 3,
-                borderColor: '#FFD700'
+                borderColor: '#FFC107'
               }}>
                 <Ionicons name="person" size={24} color="#666" />
               </TouchableOpacity>
@@ -133,7 +133,7 @@ export default function HomeScreen() {
               padding: 12,
               alignItems: 'center'
             }}>
-              <Text style={{ fontSize: 28, fontWeight: '900', color: '#FF6B00' }}>
+              <Text style={{ fontSize: 28, fontWeight: '900', color: '#FF9800' }}>
                 {myPoints.toLocaleString()} P
               </Text>
             </View>
@@ -157,7 +157,7 @@ export default function HomeScreen() {
 
             {myDream ? (
               <View style={{
-                backgroundColor: '#FFF5F5',
+                backgroundColor: '#FFF8E1',
                 borderRadius: 12,
                 padding: 20,
                 marginBottom: 16
