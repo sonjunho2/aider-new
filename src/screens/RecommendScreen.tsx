@@ -51,7 +51,7 @@ export default function RecommendScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
-      <LinearGradient colors={['#4c6ef5', '#364fc7']} style={{ paddingBottom: 0 }}>
+      <LinearGradient colors={['#FFC107', '#FF9800']} style={{ paddingBottom: 0 }}>
         <SafeAreaView>
           {/* Header */}
           <View style={{ 
