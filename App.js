@@ -20,7 +20,6 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            // ↓ TypeScript 타입 표기 제거 (JS 문법으로 고정)
             let iconName;
 
             if (route.name === 'Home') {
@@ -54,31 +53,11 @@ export default function App() {
           headerShown: false,
         })}
       >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ tabBarLabel: '홈' }}
-        />
-        <Tab.Screen
-          name="Reviews"
-          component={ReviewsScreen}
-          options={{ tabBarLabel: '후기' }}
-        />
-        <Tab.Screen
-          name="Community"
-          component={CommunityScreen}
-          options={{ tabBarLabel: '커뮤니티' }}
-        />
-        <Tab.Screen
-          name="Recommend"
-          component={RecommendScreen}
-          options={{ tabBarLabel: '추천하기' }}
-        />
-        <Tab.Screen
-          name="Notifications"
-          component={NotificationScreen}
-          options={{ tabBarLabel: '알림및공지' }}
-        />
+        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: '홈' }} />
+        <Tab.Screen name="Reviews" component={ReviewsScreen} options={{ tabBarLabel: '후기' }} />
+        <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarLabel: '커뮤니티' }} />
+        <Tab.Screen name="Recommend" component={RecommendScreen} options={{ tabBarLabel: '추천하기' }} />
+        <Tab.Screen name="Notifications" component={NotificationScreen} options={{ tabBarLabel: '알림및공지' }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
