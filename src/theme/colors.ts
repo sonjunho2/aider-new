@@ -1,4 +1,4 @@
-/src/theme/colors.ts
+//src/theme/colors.ts
 const colors = {
   primary: '#667eea',
   background: '#F7F7FB',
