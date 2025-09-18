@@ -1,4 +1,4 @@
-/새파일 /src/theme/styles.ts
+//src/theme/styles.ts
 import { StyleSheet } from 'react-native';
 import colors from './colors';
 
