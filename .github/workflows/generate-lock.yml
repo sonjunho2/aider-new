@@ -17,12 +17,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate yarn.lock
+      - name: Generate yarn.lock from package.json
         run: |
           npm i -g yarn@1.22.19
-          yarn install
+          yarn install --no-progress
           git config user.email "actions@github.com"
           git config user.name "github-actions[bot]"
           git add yarn.lock
-          git commit -m "chore: add yarn.lock" || echo "no changes"
+          git commit -m "chore: add yarn.lock for Expo SDK 53" || echo "no changes"
           git push
