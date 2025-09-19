@@ -20,6 +20,7 @@
         "backgroundColor": "#667eea"
       }
     },
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "04693d32-fece-4806-9347-25296d2cd97f"
