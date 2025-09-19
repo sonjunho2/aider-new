@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Money Doubling",
-    "slug": "money-doubling-app",
+    "slug": "aider-new",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,11 +24,6 @@
       }
     },
     "web": { "favicon": "./assets/favicon.png" },
-    "plugins": [],
-    "extra": {
-      "eas": {
-        "projectId": "04693d32-fece-4806-9347-25296d2cd97f"
-      }
-    }
+    "plugins": []
   }
 }
