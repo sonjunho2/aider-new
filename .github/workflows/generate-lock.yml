@@ -13,13 +13,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Generate yarn.lock
+      - name: Use Yarn 1.x
         run: |
           corepack enable
           corepack prepare yarn@1.22.19 --activate
+          yarn --version
+      - name: Generate yarn.lock
+        run: |
           yarn install --no-progress
           git config user.email "actions@github.com"
           git config user.name "github-actions[bot]"
           git add yarn.lock
-          git commit -m "chore: add yarn.lock" || echo "no changes"
+          git commit -m "chore: update yarn.lock with expo-build-properties" || echo "no changes"
           git push
