@@ -1,0 +1,28 @@
+name: Generate yarn.lock
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gen-lock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate yarn.lock
+        run: |
+          npm i -g yarn@1.22.19
+          yarn install
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git add yarn.lock
+          git commit -m "chore: add yarn.lock" || echo "no changes"
+          git push
