@@ -6,6 +6,12 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      NPM_CONFIG_FUND: false
+      NPM_CONFIG_AUDIT: false
+      EXPO_NO_TELEMETRY: 1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,20 +21,19 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install deps
+      - name: Install CLI only
         run: |
-          npm ci
           npm i -g eas-cli
           sudo apt-get update
           sudo apt-get install -y jq
 
       - name: EAS build (Android APK)
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
           eas build --platform android --profile production --non-interactive --wait --json > build.json
           cat build.json
-          jq -r '.[0].artifacts.buildUrl // .artifacts.buildUrl // .builds[0].artifacts.buildUrl' build.json > artifact_url.txt || true
+          # URL 추출 (여러 응답 포맷 대비)
+          jq -r '..|.buildUrl? // .artifacts?.buildUrl? // .artifacts?.applicationArchiveUrl? // empty' build.json | head -n1 > artifact_url.txt
+          test -s artifact_url.txt || (echo "No build URL found" && exit 1)
 
       - name: Upload build URL (artifact)
         uses: actions/upload-artifact@v4
