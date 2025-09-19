@@ -4,7 +4,6 @@
     "slug": "aider-new",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
@@ -20,9 +19,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#667eea"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": []
   }
