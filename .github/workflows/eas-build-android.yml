@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
       NPM_CONFIG_FUND: false
       NPM_CONFIG_AUDIT: false
       EXPO_NO_TELEMETRY: 1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,13 +22,17 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install CLI only
+      - name: Install EAS CLI
         run: |
           npm i -g eas-cli
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: EAS build (Android APK)
+      - name: Link Expo project (eas init non-interactive)
+        run: |
+          eas init --id "$EAS_PROJECT_ID" --non-interactive --force
+
+      - name: Build Android APK
         run: |
           eas build --platform android --profile production --non-interactive --wait --json > build.json
           cat build.json
