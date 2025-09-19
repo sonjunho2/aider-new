@@ -4,6 +4,7 @@
   },
   "build": {
     "production": {
+      "credentialsSource": "remote",
       "android": {
         "buildType": "apk"
       }
