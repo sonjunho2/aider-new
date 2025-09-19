@@ -21,11 +21,15 @@ jobs:
           corepack enable
           corepack prepare yarn@1.22.19 --activate
           yarn --version
-      - name: Install deps
-        run: yarn install --frozen-lockfile --non-interactive
+      - name: Install deps (respect yarn.lock)
+        run: |
+          yarn install --frozen-lockfile --non-interactive
       - name: Install EAS CLI
-        run: npm i -g eas-cli && sudo apt-get update && sudo apt-get install -y jq
-      - name: Build (Android APK)
+        run: |
+          npm i -g eas-cli
+          sudo apt-get update
+          sudo apt-get install -y jq
+      - name: Build Android APK on EAS
         run: |
           eas build --platform android --profile production --non-interactive --wait --json > build.json
           cat build.json
