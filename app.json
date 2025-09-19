@@ -1,4 +1,3 @@
-
 {
   "expo": {
     "name": "Money Doubling",
@@ -12,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#667eea"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.sonjunho2.moneydoubling"
@@ -26,9 +23,12 @@
         "backgroundColor": "#667eea"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": []
+    "web": { "favicon": "./assets/favicon.png" },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "04693d32-fece-4806-9347-25296d2cd97f"
+      }
+    }
   }
 }
