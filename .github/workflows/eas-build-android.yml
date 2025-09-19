@@ -11,41 +11,27 @@ jobs:
       NPM_CONFIG_FUND: false
       NPM_CONFIG_AUDIT: false
       EXPO_NO_TELEMETRY: 1
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Use Yarn 1.x
         run: |
           corepack enable
           corepack prepare yarn@1.22.19 --activate
           yarn --version
-
-      - name: Install project dependencies
-        run: |
-          yarn install --frozen-lockfile --non-interactive
-
+      - name: Install deps
+        run: yarn install --frozen-lockfile --non-interactive
       - name: Install EAS CLI
-        run: |
-          npm i -g eas-cli
-          sudo apt-get update
-          sudo apt-get install -y jq
-
-      - name: Build Android APK on EAS
+        run: npm i -g eas-cli && sudo apt-get update && sudo apt-get install -y jq
+      - name: Build (Android APK)
         run: |
           eas build --platform android --profile production --non-interactive --wait --json > build.json
           cat build.json
           jq -r '..|.buildUrl? // .artifacts?.buildUrl? // .artifacts?.applicationArchiveUrl? // empty' build.json | head -n1 > artifact_url.txt
           test -s artifact_url.txt || (echo "No build URL found" && exit 1)
-
-      - name: Upload build URL (artifact)
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: apk-download-url
           path: artifact_url.txt
