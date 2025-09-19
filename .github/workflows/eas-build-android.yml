@@ -1,0 +1,37 @@
+name: EAS Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: |
+          npm ci
+          npm i -g eas-cli
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: EAS build (Android APK)
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          eas build --platform android --profile production --non-interactive --wait --json > build.json
+          cat build.json
+          jq -r '.[0].artifacts.buildUrl // .artifacts.buildUrl // .builds[0].artifacts.buildUrl' build.json > artifact_url.txt || true
+
+      - name: Upload build URL (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-download-url
+          path: artifact_url.txt
