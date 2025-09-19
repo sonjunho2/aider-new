@@ -21,13 +21,23 @@ jobs:
         with:
           node-version: 20
 
+      - name: Use Yarn 1.x
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.19 --activate
+          yarn --version
+
+      - name: Install project dependencies
+        run: |
+          yarn install --frozen-lockfile --non-interactive
+
       - name: Install EAS CLI
         run: |
           npm i -g eas-cli
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Build Android APK
+      - name: Build Android APK on EAS
         run: |
           eas build --platform android --profile production --non-interactive --wait --json > build.json
           cat build.json
